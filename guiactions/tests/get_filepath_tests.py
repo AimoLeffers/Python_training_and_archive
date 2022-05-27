@@ -1,5 +1,5 @@
 import unittest
-from guiactions.get_filename import get_filepath_from_user
+from guiactions.get_filepath import get_filepath_from_user
 
 
 class TestGetFilename(unittest.TestCase):
