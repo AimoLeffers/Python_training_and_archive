@@ -2,7 +2,7 @@ import logging
 import datetime as td
 
 """
-Logging-Levels:
+logging-Levels:
     DEBUG
     INFO
     WARNING
@@ -25,14 +25,14 @@ logging.log(logging.CRITICAL, "This is our first logging message")
 
 logging.info("Test")
 
-# Logging with name definition fpr a logger
+# logging with name definition fpr a logger
 logger = logging.getLogger("myLogger")
 logger.info("This is some information")
 
 # Define the format of the logs
 log_format = logging.Formatter("%(asctime)s: %(levelname)s - %(message)s")
 
-# Logging to a file and the commandline
+# logging to a file and the commandline
 today = td.datetime.today()  # Set the current date as filename of the logfile, so that the files dont get too big
 filename = f"{today.year}-{today.month:02d}-{today.day:02d}.log"
 
