@@ -4,14 +4,19 @@ from tkinter.filedialog import askopenfilename
 
 
 class __FilePickWindow:
+    """Wrapper class for a simple fileselection gui"""
+
     def __init__(self, windowtitle, filetypes, initial_dir):
+        """Initial setup of all variables"""
         self.windowtitle = windowtitle
         self.filetypes = filetypes
         self.initial_dir = initial_dir
         self.window = None
         self.selected_path = None
+        return
 
     def show(self):
+        """Creates the gui, shows it to the user and may retrive the filepath of a selected file"""
         self.selected_path = None
         self.window = tk.Tk()
         self.window.withdraw()

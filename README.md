@@ -10,7 +10,7 @@ habbits while writing code:
 
 1. English! Everything!
 2. Names for variables, functions and files should not be assinged without a tought.
-3. Documentation. Write comments and use pdoc (https://pdoc.dev/)
+3. Documentation. Write comments and use pdoc (https://pdoc.dev/) or Sphinx (https://www.sphinx-doc.org)
 4. Testing. Write test for functions!
 5. Logging. No printf-debugging! Use logs!
 
