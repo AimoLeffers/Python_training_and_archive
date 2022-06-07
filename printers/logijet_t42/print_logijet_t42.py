@@ -12,7 +12,6 @@ def main():
                             print_date=datetime.today().strftime('%d.%m.%Y'))
 
     udp_print('192.168.1.134', message)
-    print(message)
     return
 
 
@@ -73,7 +72,6 @@ def setup_message(p_nr: str, p_customer: str, p_desc: str, basket_nr: str, print
     """Adding the print date"""
     print_msg += ascii_text_formater(50, 725, 2, f"Druckdatum: {print_date}")
     print_msg += "P1\n"
-    print(print_msg)
     return bytes(print_msg, 'utf-8')
 
 
