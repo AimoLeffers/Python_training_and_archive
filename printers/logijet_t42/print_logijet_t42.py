@@ -11,7 +11,7 @@ def main():
                             basket_nr="92",
                             print_date=datetime.today().strftime('%d.%m.%Y'))
 
-    udp_print('192.168.1.134', message)
+    tcp_print('192.168.1.134', message)
     return
 
 
@@ -116,7 +116,7 @@ def ascii_text_formater(x_pos: int,
     return command_string
 
 
-def udp_print(printer_ip: str, print_message: bytes, printer_port: int = 9100):
+def tcp_print(printer_ip: str, print_message: bytes, printer_port: int = 9100):
     """
     Prints a message in RAW-Format on the specified printer
 
