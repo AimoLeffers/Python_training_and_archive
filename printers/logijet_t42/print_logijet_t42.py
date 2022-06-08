@@ -18,11 +18,11 @@ def main():
 def setup_message(p_nr: str, p_customer: str, p_desc: str, basket_nr: str, print_date: str):
     """
     Provides the EPL2 formated string as bytes to print a project label
-    :param p_nr:
-    :param p_customer:
-    :param p_desc:
-    :param basket_nr:
-    :param print_date:
+    :param p_nr: Projectnumber
+    :param p_customer: Name of the customer
+    :param p_desc: Decription of the project
+    :param basket_nr: number of the product basket
+    :param print_date: date of the printing
     :return:
     """
     max_len_per_line = 31
@@ -35,10 +35,16 @@ def setup_message(p_nr: str, p_customer: str, p_desc: str, basket_nr: str, print
     p_customer = p_customer.replace("ö", "oe")
     p_customer = p_customer.replace("ü", "ue")
     p_customer = p_customer.replace("ä", "ae")
+    p_customer = p_customer.replace("Ö", "oe")
+    p_customer = p_customer.replace("Ü", "ue")
+    p_customer = p_customer.replace("Ä", "ae")
 
     p_desc = p_desc.replace("ö", "oe")
     p_desc = p_desc.replace("ü", "ue")
     p_desc = p_desc.replace("ä", "ae")
+    p_desc = p_desc.replace("Ö", "oe")
+    p_desc = p_desc.replace("Ü", "ue")
+    p_desc = p_desc.replace("Ä", "ae")
 
     """Add the projectnumber in the first line"""
     print_msg += ascii_text_formater(50, 50, 4, p_nr, font_size_mult_x=6, font_size_mult_y=6)
