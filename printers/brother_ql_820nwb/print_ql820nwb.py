@@ -6,9 +6,8 @@ from datetime import datetime
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    debug_ip = '127.0.0.1'
-    ip = '192.168.1.135'
 
+    ip = '192.168.1.135'
     wk_nr = '383'
     ls_nr = 'LS2022060901'
     print_date = datetime.today().strftime('%d.%m.%Y')
@@ -27,7 +26,6 @@ def main():
 
     label.cut_after_print(True)
     label.print(ip, port)
-    # label.debug(debug_ip, port)
     return
 
 
@@ -53,10 +51,6 @@ class Label:
 
     def __init_escp_mode(self):
         self.data += b"\x1B\x40"
-        return
-
-    def debug(self, debug_ip: str, port: int):
-        self.print(debug_ip, port)
         return
 
     def print(self, ip, port: int = 9100):
@@ -147,9 +141,25 @@ class Label:
         self.data += m_h  # mH
         return
 
-    def specify_page_format(self):
+    def add_qr_code(self, wk_nr):
+        """
+        Adds a qr code with the number of the ware basket to the top left corner of the label
+        :param wk_nr: Number of the ware basket, which will be encode within the qr code
+        :return: Nothing
+        """
 
-        return
+        # Add command
+        self.data += b"\x1B\x69\x51"
+
+        # Add Parameters
+        self.data += b"\x03"  # Cell-Size
+        self.data += b"\x02"  # Model
+        self.data += b"\x00"  # Structured Append setting
+        self.data += b"\x00"  # Code-Number
+        self.data += b"\x00"  # Number of partitions
+        self.data += b"\x00"  # Parity data
+        self.data += b"\x02"  # Error correction level
+        self.data += b"\x00"  # Data input method
 
     def specify_horizontal_pos(self, x_in_mm: float):
         """
@@ -342,5 +352,27 @@ def tcp_print(printer_ip: str, print_message: bytes, printer_port: int = 9100):
     return
 
 
+def get_parity_byte(input_data: str):
+    len_input_data = len(input_data)
+    parity_byte_as_int = None
+
+    if not isinstance(input_data, str):
+        raise TypeError("input_data must be a string")
+
+    if len_input_data < 1:
+        raise ValueError("number of chars must be > 1")
+
+    for ii, char in enumerate(input_data):
+        char_as_byte = bytes(char, 'utf-8')
+        char_as_int = int.from_bytes(char_as_byte, 'big')
+        if ii == 0:
+            parity_byte_as_int = char_as_int
+        else:
+            parity_byte_as_int ^= char_as_int
+
+    return parity_byte_as_int.to_bytes(1, 'big')
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    print(get_parity_byte("1234"))

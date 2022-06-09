@@ -1,6 +1,7 @@
 import unittest
 from printers.brother_ql_820nwb.print_ql820nwb import mm_to_dots
 from printers.brother_ql_820nwb.print_ql820nwb import dots_to_hex
+from printers.brother_ql_820nwb.print_ql820nwb import get_parity_byte
 
 
 class MmToDotsTests(unittest.TestCase):
@@ -26,6 +27,12 @@ class DotsToHexTests(unittest.TestCase):
 
     def test_negative_values(self):
         self.assertRaises(ValueError, dots_to_hex, -5)
+
+
+class GetParityByteTests(unittest.TestCase):
+    def test_string_values(self):
+        self.assertEqual(get_parity_byte('1234'), b'\x04')
+        self.assertEqual(get_parity_byte('123456789'), b'\x31')
 
 
 if __name__ == '__main__':
