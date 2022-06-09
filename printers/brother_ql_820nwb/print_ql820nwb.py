@@ -6,24 +6,30 @@ from datetime import datetime
 
 def main():
     logging.basicConfig(level=logging.INFO)
+    print_label('3642', 'LS98347778264', '192.168.1.135', 9100)
 
-    ip = '192.168.1.135'
-    wk_nr = '383'
-    ls_nr = 'LS2022060901'
+
+def print_label(wk_nr: str, ls_nr: str, ip: str = '192.168.1.135', port: int = 9100):
+    """
+    Prints the ware basket number and the number of the delivery note on a predefined layout on a brother ql-820NWB
+    :param wk_nr: Number of the ware basket
+    :param ls_nr: Number of the delivery note
+    :param ip: IP of the target printer
+    :param port: Port of the target printer
+    :return: Nothing
+    """
     print_date = datetime.today().strftime('%d.%m.%Y')
 
-    port = 9100
     label = Label(length=29.0, width=62.0, lr_margin=3.0, tb_margin=1.5)
     label.select_landscape_orientation(0)
     label.specify_page_length()
-
+    label.add_qr_code(wk_nr)
     label.add_text(25.0, 0.0, 10, 33, "Warenkorbnummer:")
     label.add_text(25.0, 5.0,  10, 33, wk_nr, isbold=True)
     label.add_text(25.0, 10.0, 10, 33, "Lieferscheinnummer:")
     label.add_text(25.0, 15.0, 1, 24, ls_nr, isbold=False)
-    label.add_text(0.0, 20.0, 10, 33, "Druckdatum:")
+    label.add_text(2.8, 20.0, 10, 33, "Druckdatum:")
     label.add_text(25.0, 20.0,  10, 33, print_date)
-
     label.cut_after_print(True)
     label.print(ip, port)
     return
@@ -141,25 +147,26 @@ class Label:
         self.data += m_h  # mH
         return
 
-    def add_qr_code(self, wk_nr):
+    def add_qr_code(self, wk_nr: str):
         """
         Adds a qr code with the number of the ware basket to the top left corner of the label
         :param wk_nr: Number of the ware basket, which will be encode within the qr code
         :return: Nothing
         """
-
         # Add command
         self.data += b"\x1B\x69\x51"
 
         # Add Parameters
-        self.data += b"\x03"  # Cell-Size
+        self.data += b"\x0a"  # Cell-Size
         self.data += b"\x02"  # Model
         self.data += b"\x00"  # Structured Append setting
         self.data += b"\x00"  # Code-Number
         self.data += b"\x00"  # Number of partitions
-        self.data += b"\x00"  # Parity data
+        self.data += get_parity_byte(wk_nr)
         self.data += b"\x02"  # Error correction level
         self.data += b"\x00"  # Data input method
+        self.data += bytes(wk_nr, 'utf-8')    # Add data
+        self.data += b'\\\\\\'
 
     def specify_horizontal_pos(self, x_in_mm: float):
         """
@@ -374,5 +381,4 @@ def get_parity_byte(input_data: str):
 
 
 if __name__ == "__main__":
-    # main()
-    print(get_parity_byte("1234"))
+    main()
