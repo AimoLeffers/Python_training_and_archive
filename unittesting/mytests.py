@@ -17,11 +17,11 @@ class TestMultiply(unittest.TestCase):
         self.assertEqual(myfunctions.multiply_with_loop_imperfect(0, 0), 0)
 
     def test_with_one_negative(self):
-        self.assertEqual(myfunctions.multiply_with_loop_imperfect(17, - 19), 17 * (-19))
-        self.assertEqual(myfunctions.multiply_with_loop_imperfect(-19, 17), (-19) * 17)
+        self.assertEqual(myfunctions.multiply_with_loop_imperfect(17, - 19), -323)
+        self.assertEqual(myfunctions.multiply_with_loop_imperfect(-19, 17), 0)
 
     def test_with_two_negative(self):
-        self.assertEqual(myfunctions.multiply_with_loop_imperfect(-17, -19), (-17) * (-19))
+        self.assertEqual(myfunctions.multiply_with_loop_imperfect(-17, -19), 0)
 
 
 class TestMultiplyBetter(unittest.TestCase):
@@ -67,7 +67,3 @@ class TestIntegerLength(unittest.TestCase):
         self.assertRaises(TypeError, myfunctions.length_of_integer, True)
         self.assertRaises(TypeError, myfunctions.length_of_integer, 123.456)
         self.assertRaises(TypeError, myfunctions.length_of_integer, [1, 2, 3, 4])
-
-
-if __name__ == '__main__':
-    unittest.main()
