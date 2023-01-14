@@ -29,4 +29,4 @@ Most of the stuff I do here is from the follwoing Sources:
 # Disclaimer
 The code snippets here are not professional oder ready to use in any way. This repository is
 here for me to learn. If you find something useful (which I dont think will be the case,
-because I don not develop new things here), be very careful while using it. 
+because I do not develop new things here), be very careful while using it. 
