@@ -13,6 +13,7 @@ habbits while writing code:
 3. Documentation. Write comments and use pdoc (https://pdoc.dev/) or Sphinx (https://www.sphinx-doc.org)
 4. Testing. Write test for functions!
 5. Logging. No printf-debugging! Use logs!
+6. Write useful commit messages! See Conventional Commits (https://www.conventionalcommits.org) as a guide
 
 _This list might be updated at a given time..._
 
