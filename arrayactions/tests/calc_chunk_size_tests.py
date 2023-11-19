@@ -1,6 +1,13 @@
+import os
+import sys
 import unittest
-from arrayactions.calc_chunk_size import calc_chunk_size
 
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+from calc_chunk_size import calc_chunk_size
 
 class CalcChunkSizeTest(unittest.TestCase):
     def test_even_input_length_even_chunk_size(self):
