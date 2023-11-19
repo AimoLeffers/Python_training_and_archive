@@ -4,15 +4,20 @@ Example FastAPI module for user management.
 This module defines a FastAPI application and includes a sample database of users.
 """
 from typing import List
+from typing import Annotated
 from uuid import UUID, uuid4
 
 from models import Gender, Role, User, UpdateUser
 
 from fastapi import FastAPI
+from fastapi import Depends
 from fastapi import HTTPException
+from fastapi.security import OAuth2PasswordBearer
 
 
 app = FastAPI()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 db: List[User] = [
     User(
@@ -101,7 +106,8 @@ async def delete_user(uid: UUID):
     )
 
 @app.put("/api/v1/users/{id}")
-async def update_user(user_update: UpdateUser, uid: UUID):
+async def update_user(user_update: Annotated[UpdateUser, Depends(oauth2_scheme)],
+                      uid: Annotated[UUID, Depends(oauth2_scheme)]):
     """
     Update user information by ID.
 
